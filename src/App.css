@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+.customerDetails {
+  background-color: chocolate;
+  border-style: solid;
+  width: 40%;
+  margin: auto;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  padding-left: 20px;
+}
+
 .posts {
   margin: auto;
   background-color: aqua;
@@ -11,6 +21,14 @@
   border-style: solid;
   border-color: blueviolet;
   margin-bottom: 2%;
+}
+
+.nappi {
+  border-radius: 10px;
+  margin-left: 10px;
+  font-size: 26px;
+  background-color: chocolate;
+  color: white;
 }
 
 .App-logo {
