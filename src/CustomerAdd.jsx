@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState} from 'react'
 import CustomerService from './services/Customer'
 
-function CustomerAdd ({setLisäystila, }) {
+function CustomerAdd ({setLisäystila, setShowMessage, setMessage, setIsPositive}) {
 
     // Komponentin tilan määritys
 
@@ -37,14 +37,26 @@ const handleSubmit = (event) => {
 CustomerService.create(newCustomer)
 .then(response => {
     if (response.status === 200) {
-        alert("Added new Customer: " + newCustomer.companyName)
+        setMessage("Added new Customer: " + newCustomer.companyName)
+        setIsPositive(true)
+        setShowMessage(true)
+
+        setTimeout(() => {
+            setShowMessage(false)
+        }, 5000)
         setLisäystila(false)
         
      }
  
        })
        .catch(error => {
-         alert("Error")
+         setMessage(error)
+         setIsPositive(false)
+         setShowMessage(true)
+
+         setTimeout(() => {
+            setShowMessage(false)
+        }, 6000)
         
        })
 
