@@ -4,12 +4,13 @@ import ProductService from './services/Product'
 import Product from './Product'
 import ProductAdd from './ProductAdd'
 
-function ProductList () {
+const ProductList = ({setIsPositive, setShowMessage, setMessage}) => {
 
     // Komponentin tilan määritys
 const [products, setProducts] = useState([])
 const [showProducts, setShowProducts] = useState(false)
 const [lisäystila, setLisäystila] = useState(false)
+const [reload, reloadNow] = useState(false)
 
 useEffect( () => {
     ProductService.getAll()
@@ -17,7 +18,7 @@ useEffect( () => {
        setProducts(data)
 })
 },
-[lisäystila]
+[lisäystila, reload]
 )
   return (
   <>
@@ -26,12 +27,15 @@ useEffect( () => {
         
         {!lisäystila && <button className="nappi" onClick={() => setLisäystila(true)}>Add new </button>}</h1>
 
-        {lisäystila && <ProductAdd setLisäystila={setLisäystila}/>}
+        {lisäystila && <ProductAdd setLisäystila={setLisäystila}
+        setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}
+        />}
 
         
 
         { showProducts && products && products.map( p => (
-            <Product key ={p.productId} product={p} />  
+            <Product key ={p.productId} product={p} reloadNow={reloadNow} reload={reload}
+            setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />  
         )
             ) }
 

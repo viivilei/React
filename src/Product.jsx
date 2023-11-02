@@ -1,11 +1,60 @@
 import './App.css';
 import React, {useState} from 'react'
+import ProductService from './services/Product'
 
 // props on nimeltään product
-function Product ({product}) {
+const Product = ({product, setIsPositive, setMessage, setShowMessage, reload, reloadNow}) => {
 
     // Komponentin tilan määritys
 const [showDetails, setShowDetails] = useState(false)
+
+const deleteProduct = (product) => {
+    let vastaus = window.confirm("Remove product: " + product.productName)
+    if (vastaus === true) {
+
+    ProductService.remove(product.productId)
+    .then(res => {
+        if (res.status === 200) {
+        setMessage(`Successfully removed product ${product.productName}`)
+        setIsPositive(true)
+        setShowMessage(true)
+        window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+
+        // Ilmoituksen piilotus
+        setTimeout(() => {
+        setShowMessage(false)},
+        5000
+        )
+        reloadNow(!reload)
+        }
+        
+            }
+        )
+        .catch(error => {
+            setMessage(error)
+            setIsPositive(false)
+            setShowMessage(true)
+            window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+    
+            setTimeout(() => {
+              setShowMessage(false)
+             }, 6000)
+          })
+
+    } // Jos poisto halutaankin perua
+    else {
+    setMessage('Poisto peruttu onnistuneesti.')
+        setIsPositive(true)
+        setShowMessage(true)
+        window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+
+        // Ilmoituksen piilotus
+        setTimeout(() => {
+        setShowMessage(false)},
+        5000
+        )
+    }
+}
 
 
   return (
@@ -17,7 +66,7 @@ const [showDetails, setShowDetails] = useState(false)
 
         {showDetails && <div className="productDetails">
             <h3>{product.productName}</h3>
-            <button>Delete</button>
+            <button onClick={() => deleteProduct(product)}>Delete</button>
             <button>Edit</button>
             <table>
                 <thead>

@@ -29,11 +29,12 @@ const huomio = () => {
     <div className="App">
       <h1>Hello from react!</h1>
 
-      <ProductList />
-
       {showMessage && <Message message={message} isPositive={isPositive} /> }
 
+      <ProductList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />
+
       <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
+
       <Posts />
 
       {showLaskuri && <Laskuri huomio={huomio} />}

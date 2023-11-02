@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState} from 'react'
 import ProductService from './services/Product'
 
-function ProductAdd ({setLisäystila}) {
+function ProductAdd ({setLisäystila, setShowMessage, setMessage, setIsPositive}) {
 
     // Komponentin tilan määritys
 
@@ -34,18 +34,28 @@ const handleSubmit = (event) => {
     ProductService.create(newProduct)
     .then(response => {
         if (response.status === 200) {
-            alert("Added new product: " + newProduct.productName)
-        }
+            setMessage("Added new product: " + newProduct.productName)
+            setIsPositive(true)
+            setShowMessage(true)
 
-    })
-    .catch(error => {
-        alert("Error")
-    })
-
-    setTimeout(() => {
-        setLisäystila(false)
-    }, 500)
-}
+            setTimeout(() => {
+                setShowMessage(false)
+               }, 5000)
+        
+               setLisäystila(false)
+            }
+        
+              })
+              .catch(error => {
+                setMessage(error)
+                setIsPositive(false)
+                setShowMessage(true)
+        
+                setTimeout(() => {
+                  setShowMessage(false)
+                 }, 6000)
+              })
+            }
 
 
   return (

@@ -11,5 +11,9 @@ const create = newProduct => {
   return axios.post(baseUrl, newProduct)
 } 
 
+const remove = id => {
+  return axios.delete(`${baseUrl}/${id}`)
+}
 
-export default { getAll, create }
+
+export default { getAll, create, remove }
