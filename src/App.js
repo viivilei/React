@@ -5,6 +5,7 @@ import Viesti from './Viesti'
 import Posts from './Posts'
 import CustomerList from './CustomerList'
 import Message from './Message';
+import ProductList from './ProductList';
 
 function App() {
 
@@ -27,6 +28,8 @@ const huomio = () => {
   return (
     <div className="App">
       <h1>Hello from react!</h1>
+
+      <ProductList />
 
       {showMessage && <Message message={message} isPositive={isPositive} /> }
 

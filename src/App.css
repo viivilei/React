@@ -42,6 +42,16 @@
   padding-left: 20px;
 }
 
+.productDetails {
+  background-color: chocolate;
+  border-style: solid;
+  width: 40%;
+  margin: auto;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  padding-left: 20px;
+}
+
 .posts {
   margin: auto;
   background-color: aqua;
