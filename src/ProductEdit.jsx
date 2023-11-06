@@ -2,25 +2,27 @@ import './App.css';
 import React, {useState} from 'react'
 import ProductService from './services/Product'
 
-function ProductAdd ({setLisäystila, setShowMessage, setMessage, setIsPositive}) {
+function ProductEdit ({setMuokkaustila, setShowMessage, setMessage, setIsPositive, muokattavaProduct}) {
 
     // Komponentin tilan määritys
 
-const [newProductName, setNewProductName] = useState('')
-const [newSupplierId, setNewSupplierId] = useState('')
-const [newCategoryId, setNewCategoryId] = useState('')
+const [newProductId, setNewProductId] = useState(muokattavaProduct.productId)
+const [newProductName, setNewProductName] = useState(muokattavaProduct.productName)
+const [newSupplierId, setNewSupplierId] = useState(muokattavaProduct.supplierId)
+const [newCategoryId, setNewCategoryId] = useState(muokattavaProduct.categoryId)
 
-const [newQuantityPerUnit, setNewQuantityPerUnit] = useState('')
-const [newUnitPrice, setNewUnitPrice] = useState('')
-const [newUnitsInStock, setNewUnitsInStock] = useState('')
-const [newUnitsOnOrder, setNewUnitsOnOrder] = useState('')
-const [newReorderLevel, setNewReorderLevel] = useState('')
+const [newQuantityPerUnit, setNewQuantityPerUnit] = useState(muokattavaProduct.quantityPerUnit)
+const [newUnitPrice, setNewUnitPrice] = useState(muokattavaProduct.unitPrice)
+const [newUnitsInStock, setNewUnitsInStock] = useState(muokattavaProduct.unitsInStock)
+const [newUnitsOnOrder, setNewUnitsOnOrder] = useState(muokattavaProduct.unitsOnOrder)
+const [newReorderLevel, setNewReorderLevel] = useState(muokattavaProduct.reorderLevel)
 
 
 
 const handleSubmit = (event) => {
     event.preventDefault()
     var newProduct = {
+        productId: newProductId,
         productName: newProductName,
         supplierId: newSupplierId,
         categoryId: newCategoryId,
@@ -30,10 +32,10 @@ const handleSubmit = (event) => {
         unitsOnOrder: newUnitsOnOrder,
         reorderLevel: newReorderLevel
     }
-    ProductService.create(newProduct)
+    ProductService.update(newProduct)
     .then(response => {
         if (response.status === 200) {
-            setMessage("Added new product: " + newProduct.productName)
+            setMessage("Edited product: " + newProduct.productName)
             setIsPositive(true)
             setShowMessage(true)
 
@@ -41,7 +43,7 @@ const handleSubmit = (event) => {
                 setShowMessage(false)
                }, 5000)
         
-               setLisäystila(false)
+               setMuokkaustila(false)
             }
         
               })
@@ -58,10 +60,13 @@ const handleSubmit = (event) => {
 
 
   return (
-    <div id="addNew">
-         <h2>Product add</h2>
+    <div id="edit">
+         <h2>Product Edit</h2>
 
 <form onSubmit={handleSubmit}>
+<div>
+    <input type="text" value={newProductId} disabled />
+            </div>
     <div>
 <input type="text" value={newProductName} onChange={({target}) => setNewProductName(target.value)} placeholder="Product name" />
         </div>
@@ -90,7 +95,7 @@ const handleSubmit = (event) => {
         
 
     <input type='submit' value='Save' />
-    <input type='button' value='back' onClick={() => setLisäystila(false)} />
+    <input type='button' value='back' onClick={() => setMuokkaustila(false)} />
 
 </form>
 
@@ -107,4 +112,4 @@ const handleSubmit = (event) => {
   );
 }
 
-export default ProductAdd;
+export default ProductEdit;

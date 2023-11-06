@@ -3,15 +3,15 @@ import React, {useState} from 'react'
 import ProductService from './services/Product'
 
 // props on nimeltään product
-const Product = ({product, setIsPositive, setMessage, setShowMessage, reload, reloadNow}) => {
+const Product = ({product, editProduct, setIsPositive, setMessage, setShowMessage, reload, reloadNow}) => {
 
     // Komponentin tilan määritys
 const [showDetails, setShowDetails] = useState(false)
 
 const deleteProduct = (product) => {
     let vastaus = window.confirm("Remove product: " + product.productName)
-    if (vastaus === true) {
 
+    if (vastaus === true) {
     ProductService.remove(product.productId)
     .then(res => {
         if (res.status === 200) {
@@ -67,7 +67,7 @@ const deleteProduct = (product) => {
         {showDetails && <div className="productDetails">
             <h3>{product.productName}</h3>
             <button onClick={() => deleteProduct(product)}>Delete</button>
-            <button>Edit</button>
+            <button onClick={() => editProduct(product)}>Edit</button>
             <table>
                 <thead>
                     <tr>
