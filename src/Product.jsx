@@ -66,8 +66,8 @@ const deleteProduct = (product) => {
 
         {showDetails && <div className="productDetails">
             <h3>{product.productName}</h3>
-            <button onClick={() => deleteProduct(product)}>Delete</button>
-            <button onClick={() => editProduct(product)}>Edit</button>
+            <button class="nappi3" onClick={() => deleteProduct(product)}>Delete</button>
+            <button class="nappi3" onClick={() => editProduct(product)}>Edit</button>
             <table>
                 <thead>
                     <tr>
